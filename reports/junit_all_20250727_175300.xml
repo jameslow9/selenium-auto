@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="3" time="16.245" timestamp="2025-07-27T17:53:00.849305" hostname="james.low_0R5V"><testcase classname="tests.test_aqx_platform.TestAQXLoginFunctionality" name="test_login_page_loads" time="9.424" /><testcase time="3.187" /><testcase classname="pytest" name="internal" time="0.000"><error message="internal error">def worker_internal_error(
+        self, node: WorkerController, formatted_error: str
+    ) -&gt; None:
+        """
+        pytest_internalerror() was called on the worker.
+    
+        pytest_internalerror() arguments are an excinfo and an excrepr, which can't
+        be serialized, so we go with a poor man's solution of raising an exception
+        here ourselves using the formatted message.
+        """
+        self._active_nodes.remove(node)
+        try:
+&gt;           assert False, formatted_error
+E           AssertionError: Traceback (most recent call last):
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/_pytest/main.py", line 271, in wrap_session
+E                 session.exitstatus = doit(config, session) or 0
+E                                      ^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/_pytest/main.py", line 325, in _main
+E                 config.hook.pytest_runtestloop(session=session)
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_hooks.py", line 265, in __call__
+E                 return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_manager.py", line 80, in _hookexec
+E                 return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_callers.py", line 60, in _multicall
+E                 return outcome.get_result()
+E                        ^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_result.py", line 60, in get_result
+E                 raise ex[1].with_traceback(ex[2])
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_callers.py", line 39, in _multicall
+E                 res = hook_impl.function(*args)
+E                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/xdist/remote.py", line 206, in pytest_runtestloop
+E                 self.run_one_test()
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/xdist/remote.py", line 227, in run_one_test
+E                 self.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_hooks.py", line 265, in __call__
+E                 return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_manager.py", line 80, in _hookexec
+E                 return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_callers.py", line 60, in _multicall
+E                 return outcome.get_result()
+E                        ^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_result.py", line 60, in get_result
+E                 raise ex[1].with_traceback(ex[2])
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_callers.py", line 39, in _multicall
+E                 res = hook_impl.function(*args)
+E                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/_pytest/runner.py", line 114, in pytest_runtest_protocol
+E                 runtestprotocol(item, nextitem=nextitem)
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/_pytest/runner.py", line 133, in runtestprotocol
+E                 reports.append(call_and_report(item, "call", log))
+E                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/_pytest/runner.py", line 224, in call_and_report
+E                 report: TestReport = hook.pytest_runtest_makereport(item=item, call=call)
+E                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_hooks.py", line 265, in __call__
+E                 return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_manager.py", line 80, in _hookexec
+E                 return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_callers.py", line 55, in _multicall
+E                 gen.send(outcome)
+E               File "/Users/james.low/Documents/selenium-auto/tests/conftest.py", line 91, in pytest_runtest_makereport
+E                 driver.save_screenshot(screenshot_name)
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py", line 828, in save_screenshot
+E                 return self.get_screenshot_as_file(filename)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py", line 804, in get_screenshot_as_file
+E                 png = self.get_screenshot_as_png()
+E                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py", line 838, in get_screenshot_as_png
+E                 return b64decode(self.get_screenshot_as_base64().encode("ascii"))
+E                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py", line 849, in get_screenshot_as_base64
+E                 return self.execute(Command.SCREENSHOT)["value"]
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py", line 347, in execute
+E                 self.error_handler.check_response(response)
+E               File "/Users/james.low/anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/errorhandler.py", line 229, in check_response
+E                 raise exception_class(message, screen, stacktrace)
+E             selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id
+E             Stacktrace:
+E             0   chromedriver                        0x00000001051d3570 cxxbridge1$str$ptr + 2731064
+E             1   chromedriver                        0x00000001051cb468 cxxbridge1$str$ptr + 2698032
+E             2   chromedriver                        0x0000000104d1a26c cxxbridge1$string$len + 90268
+E             3   chromedriver                        0x0000000104d54ed0 cxxbridge1$string$len + 331008
+E             4   chromedriver                        0x0000000104d7d4c8 cxxbridge1$string$len + 496376
+E             5   chromedriver                        0x0000000104d7c7d0 cxxbridge1$string$len + 493056
+E             6   chromedriver                        0x0000000104ce93d4 chromedriver + 86996
+E             7   chromedriver                        0x00000001051965f4 cxxbridge1$str$ptr + 2481340
+E             8   chromedriver                        0x000000010519985c cxxbridge1$str$ptr + 2494244
+E             9   chromedriver                        0x0000000105177248 cxxbridge1$str$ptr + 2353424
+E             10  chromedriver                        0x000000010519a118 cxxbridge1$str$ptr + 2496480
+E             11  chromedriver                        0x00000001051682f8 cxxbridge1$str$ptr + 2292160
+E             12  chromedriver                        0x0000000104ce7664 chromedriver + 79460
+E             13  dyld                                0x0000000187027f28 start + 2236
+E           assert False
+
+../../anaconda3/lib/python3.11/site-packages/xdist/dsession.py:232: AssertionError</error><error message="internal error">Traceback (most recent call last):
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/_pytest/main.py", line 271, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+                         ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/_pytest/main.py", line 325, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_hooks.py", line 265, in __call__
+    return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_manager.py", line 80, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_callers.py", line 60, in _multicall
+    return outcome.get_result()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_result.py", line 60, in get_result
+    raise ex[1].with_traceback(ex[2])
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/pluggy/_callers.py", line 39, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/xdist/dsession.py", line 138, in pytest_runtestloop
+    self.loop_once()
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/xdist/dsession.py", line 163, in loop_once
+    call(**kwargs)
+  File "/Users/james.low/anaconda3/lib/python3.11/site-packages/xdist/dsession.py", line 217, in worker_workerfinished
+    assert not crashitem, (crashitem, node)
+AssertionError: ('tests/test_aqx_platform.py::TestAQXLoginFunctionality::test_successful_login', &lt;WorkerController gw1&gt;)
+assert not 'tests/test_aqx_platform.py::TestAQXLoginFunctionality::test_successful_login'</error></testcase></testsuite></testsuites>

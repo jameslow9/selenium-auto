@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="7.806" timestamp="2025-07-27T17:48:24.612304" hostname="james.low_0R5V"><testcase classname="tests.test_aqx_platform.TestAQXLoginFunctionality" name="test_login_page_loads" time="7.779" /></testsuite></testsuites>
