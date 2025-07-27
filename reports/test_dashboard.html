@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQX Trading Platform - Test Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .header .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-value {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .passed { color: #27ae60; }
+        .failed { color: #e74c3c; }
+        .total { color: #3498db; }
+        .rate { color: #9b59b6; }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .test-details {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+        
+        .test-item {
+            border-bottom: 1px solid #ecf0f1;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .test-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        
+        .status-passed {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .status-failed {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+        
+        .screenshots-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .screenshot-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        
+        .timestamp {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 AQX Trading Platform</h1>
+            <div class="subtitle">Automated Test Results Dashboard</div>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value total">10</div>
+                <div class="metric-label">Total Tests</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value passed">10</div>
+                <div class="metric-label">Tests Passed</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value failed">0</div>
+                <div class="metric-label">Tests Failed</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value rate">100.0%</div>
+                <div class="metric-label">Pass Rate</div>
+            </div>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3>Test Results Distribution</h3>
+                <canvas id="resultsChart" width="400" height="200"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Test Categories</h3>
+                <canvas id="categoriesChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        
+        <div class="test-details">
+            <h3>📋 Detailed Test Results</h3>
+            <div class="test-list">
+
+            </div>
+        </div>
+
+        <div class="screenshots-section">
+            <h3>📸 Test Screenshots</h3>
+            <div class="screenshot-grid">
+
+                <div class="screenshot-item">
+                    <img src="screenshots/after_login_20250727_171210.png" alt="Test Screenshot" onclick="window.open('screenshots/after_login_20250727_171210.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/bulk_close_executed_20250727_171326.png" alt="Test Screenshot" onclick="window.open('screenshots/bulk_close_executed_20250727_171326.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/pending_orders_view_20250727_171301.png" alt="Test Screenshot" onclick="window.open('screenshots/pending_orders_view_20250727_171301.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/after_login_20250727_171313.png" alt="Test Screenshot" onclick="window.open('screenshots/after_login_20250727_171313.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/before_login_20250727_171204.png" alt="Test Screenshot" onclick="window.open('screenshots/before_login_20250727_171204.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/after_login_20250727_171339.png" alt="Test Screenshot" onclick="window.open('screenshots/after_login_20250727_171339.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/buy_order_placed_20250727_171210.png" alt="Test Screenshot" onclick="window.open('screenshots/buy_order_placed_20250727_171210.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/after_login_20250727_171301.png" alt="Test Screenshot" onclick="window.open('screenshots/after_login_20250727_171301.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/after_login_20250727_171248.png" alt="Test Screenshot" onclick="window.open('screenshots/after_login_20250727_171248.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/sell_order_placed_20250727_171223.png" alt="Test Screenshot" onclick="window.open('screenshots/sell_order_placed_20250727_171223.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/bulk_delete_executed_20250727_171339.png" alt="Test Screenshot" onclick="window.open('screenshots/bulk_delete_executed_20250727_171339.png', '_blank')">
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="screenshots/before_login_20250727_171217.png" alt="Test Screenshot" onclick="window.open('screenshots/before_login_20250727_171217.png', '_blank')">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="timestamp">
+            Generated on 2025-07-27 17:14:03
+        </div>
+    </div>
+    
+    <script>
+        // Results chart
+        const resultsCtx = document.getElementById('resultsChart').getContext('2d');
+        new Chart(resultsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Passed', 'Failed'],
+                datasets: [{
+                    data: [10, 0],
+                    backgroundColor: ['#27ae60', '#e74c3c'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // Categories chart (mock data for demonstration)
+        const categoriesCtx = document.getElementById('categoriesChart').getContext('2d');
+        new Chart(categoriesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Login', 'Trading', 'Views', 'Bulk Ops'],
+                datasets: [{
+                    label: 'Tests',
+                    data: [2, 4, 4, 2],
+                    backgroundColor: ['#3498db', '#9b59b6', '#f39c12', '#1abc9c'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
