@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="10" time="123.641" timestamp="2025-07-27T17:54:18.148056" hostname="james.low_0R5V"><testcase classname="tests.test_aqx_platform.TestAQXLoginFunctionality" name="test_login_page_loads" time="6.829" /><testcase classname="tests.test_aqx_platform.TestAQXLoginFunctionality" name="test_successful_login" time="13.707" /><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_place_buy_order" time="13.240" /><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_place_sell_order" time="12.123"><error message="failed on setup with &quot;selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed&#10;from unknown error: web view not found&#10;  (Session info: chrome=138.0.7204.169)&#10;Stacktrace:&#10;0   chromedriver                        0x000000010107b570 cxxbridge1$str$ptr + 2731064&#10;1   chromedriver                        0x0000000101073468 cxxbridge1$str$ptr + 2698032&#10;2   chromedriver                        0x0000000100bc23f8 cxxbridge1$string$len + 90664&#10;3   chromedriver                        0x0000000100b9c140 chromedriver + 131392&#10;4   chromedriver                        0x0000000100c317f0 cxxbridge1$string$len + 546336&#10;5   chromedriver                        0x0000000100c4a638 cxxbridge1$string$len + 648296&#10;6   chromedriver                        0x0000000100bfda0c cxxbridge1$string$len + 333884&#10;7   chromedriver                        0x000000010103e5f4 cxxbridge1$str$ptr + 2481340&#10;8   chromedriver                        0x000000010104185c cxxbridge1$str$ptr + 2494244&#10;9   chromedriver                        0x000000010101f248 cxxbridge1$str$ptr + 2353424&#10;10  chromedriver                        0x0000000101042118 cxxbridge1$str$ptr + 2496480&#10;11  chromedriver                        0x00000001010102f8 cxxbridge1$str$ptr + 2292160&#10;12  chromedriver                        0x000000010106200c cxxbridge1$str$ptr + 2627284&#10;13  chromedriver                        0x0000000101062198 cxxbridge1$str$ptr + 2627680&#10;14  chromedriver                        0x00000001010730a4 cxxbridge1$str$ptr + 2697068&#10;15  libsystem_pthread.dylib             0x000000018737ffa8 _pthread_start + 148&#10;16  libsystem_pthread.dylib             0x000000018737ada0 thread_start + 8&quot;">self = &lt;tests.test_aqx_platform.AQXLoginPage object at 0x10531ec10&gt;
+account_id = '998995', password = 'u#TuWNf2J2p$'
+
+    def login(self, account_id: str, password: str) -&gt; Dict:
+        """Perform login operation"""
+        logger.info("Starting login process...")
+    
+        try:
+            # Enter account ID
+            account_input = self.wait_for_element(AQXPageLocators.ACCOUNT_ID_INPUT)
+            account_input.clear()
+            account_input.send_keys(account_id)
+            logger.info(f"Entered Account ID: {account_id}")
+    
+            # Enter password
+            password_input = self.wait_for_element(AQXPageLocators.PASSWORD_INPUT)
+            password_input.clear()
+            password_input.send_keys(password)
+            logger.info("Entered password")
+    
+            self.take_screenshot("before_login")
+    
+            # Click login button
+            login_button = self.wait_for_clickable(AQXPageLocators.LOGIN_BUTTON)
+            login_button.click()
+            logger.info("Clicked login button")
+    
+            # Wait for response
+            time.sleep(5)
+&gt;           self.take_screenshot("after_login")
+
+tests/test_aqx_platform.py:184: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_aqx_platform.py:125: in take_screenshot
+    self.driver.save_screenshot(filename)
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:828: in save_screenshot
+    return self.get_screenshot_as_file(filename)
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:804: in get_screenshot_as_file
+    png = self.get_screenshot_as_png()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="d509355da59f6543a5a4549d1c2eaaf6")&gt;
+
+    def get_screenshot_as_png(self) -&gt; bytes:
+        """Gets the screenshot of the current window as a binary data.
+    
+        :Usage:
+            ::
+    
+                driver.get_screenshot_as_png()
+        """
+&gt;       return b64decode(self.get_screenshot_as_base64().encode("ascii"))
+E       AttributeError: 'NoneType' object has no attribute 'encode'
+
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:838: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+self = &lt;tests.test_aqx_platform.TestAQXTradingFunctionality object at 0x105324d10&gt;
+
+    def setup_method(self):
+        """Setup for each test"""
+        options = Options()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--window-size=1920,1080")
+    
+        self.driver = webdriver.Chrome(options=options)
+        self.login_page = AQXLoginPage(self.driver)
+        self.trading_page = AQXTradingPage(self.driver)
+        self.reporter = TestReporter()
+    
+        # Login first
+        self.login_page.navigate_to_login()
+        config = TestConfig()
+&gt;       self.login_page.login(config.account_id, config.password)
+
+tests/test_aqx_platform.py:512: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_aqx_platform.py:191: in login
+    self.take_screenshot("login_error")
+tests/test_aqx_platform.py:125: in take_screenshot
+    self.driver.save_screenshot(filename)
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:828: in save_screenshot
+    return self.get_screenshot_as_file(filename)
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:804: in get_screenshot_as_file
+    png = self.get_screenshot_as_png()
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:838: in get_screenshot_as_png
+    return b64decode(self.get_screenshot_as_base64().encode("ascii"))
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:849: in get_screenshot_as_base64
+    return self.execute(Command.SCREENSHOT)["value"]
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:347: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x10531e010&gt;
+response = {'status': 404, 'value': '{"value":{"error":"no such window","message":"no such window: target window already closed\\...00018737ffa8 _pthread_start + 148\\n16  libsystem_pthread.dylib             0x000000018737ada0 thread_start + 8\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -&gt; None:
+        """Checks that a JSON response from the WebDriver does not have an
+        error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        e = ErrorCode()
+        error_codes = [item for item in dir(e) if not item.startswith("__")]
+        for error_code in error_codes:
+            error_info = getattr(ErrorCode, error_code)
+            if isinstance(error_info, list) and status in error_info:
+                exception_class = getattr(ExceptionMapping, error_code, WebDriverException)
+                break
+        else:
+            exception_class = WebDriverException
+    
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "&lt;anonymous&gt;")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "&lt;anonymous&gt;")
+                        if "className" in frame:
+                            meth = f"{frame['className']}.{meth}"
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+&gt;       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+E       from unknown error: web view not found
+E         (Session info: chrome=138.0.7204.169)
+E       Stacktrace:
+E       0   chromedriver                        0x000000010107b570 cxxbridge1$str$ptr + 2731064
+E       1   chromedriver                        0x0000000101073468 cxxbridge1$str$ptr + 2698032
+E       2   chromedriver                        0x0000000100bc23f8 cxxbridge1$string$len + 90664
+E       3   chromedriver                        0x0000000100b9c140 chromedriver + 131392
+E       4   chromedriver                        0x0000000100c317f0 cxxbridge1$string$len + 546336
+E       5   chromedriver                        0x0000000100c4a638 cxxbridge1$string$len + 648296
+E       6   chromedriver                        0x0000000100bfda0c cxxbridge1$string$len + 333884
+E       7   chromedriver                        0x000000010103e5f4 cxxbridge1$str$ptr + 2481340
+E       8   chromedriver                        0x000000010104185c cxxbridge1$str$ptr + 2494244
+E       9   chromedriver                        0x000000010101f248 cxxbridge1$str$ptr + 2353424
+E       10  chromedriver                        0x0000000101042118 cxxbridge1$str$ptr + 2496480
+E       11  chromedriver                        0x00000001010102f8 cxxbridge1$str$ptr + 2292160
+E       12  chromedriver                        0x000000010106200c cxxbridge1$str$ptr + 2627284
+E       13  chromedriver                        0x0000000101062198 cxxbridge1$str$ptr + 2627680
+E       14  chromedriver                        0x00000001010730a4 cxxbridge1$str$ptr + 2697068
+E       15  libsystem_pthread.dylib             0x000000018737ffa8 _pthread_start + 148
+E       16  libsystem_pthread.dylib             0x000000018737ada0 thread_start + 8
+
+../../anaconda3/lib/python3.11/site-packages/selenium/webdriver/remote/errorhandler.py:229: NoSuchWindowException</error></testcase><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_view_notifications" time="13.178" /><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_view_open_positions" time="13.128" /><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_view_pending_orders" time="13.155" /><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_view_position_history" time="12.540" /><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_bulk_close_positions" time="12.778" /><testcase classname="tests.test_aqx_platform.TestAQXTradingFunctionality" name="test_bulk_delete_orders" time="12.842" /></testsuite></testsuites>
