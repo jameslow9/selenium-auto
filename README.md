@@ -64,10 +64,33 @@ selenium-auto/
    pip install -r requirements.txt
    ```
 
-3. **Run smoke tests**
+3. **Quick Setup & Test (Using Makefile)**
    ```bash
-   python run_tests.py --type smoke
+   # 1. Setup environment
+   make setup
+   
+   # 2. Run smoke tests
+   make smoke
+   
+   # 3. Run all tests
+   make test
+   
+   # 4. Generate dashboard
+   make dashboard
+   
+   # 5. View results
+   open reports/test_dashboard.html
    ```
+
+### Alternative Setup (Manual)
+
+```bash
+# Run smoke tests directly
+python run_tests.py --type smoke
+
+# Or run all tests
+python run_tests.py --type all
+```
 
 ## 🧪 Test Categories
 
@@ -96,7 +119,25 @@ selenium-auto/
 
 ## 🔧 Usage Examples
 
-### Basic Test Execution
+### Makefile Commands (Recommended)
+
+```bash
+# Quick setup and testing
+make setup           # Setup environment and directories
+make smoke          # Run smoke tests
+make critical       # Run critical tests  
+make trading        # Run trading tests
+make test           # Run all tests
+make dashboard      # Generate interactive dashboard
+
+# Advanced options
+make parallel       # Run tests in parallel (faster)
+make headless       # Run tests in headless mode
+make clean          # Clean up generated files
+make help           # Show all available commands
+```
+
+### Direct Python Execution
 
 ```bash
 # Run all tests
